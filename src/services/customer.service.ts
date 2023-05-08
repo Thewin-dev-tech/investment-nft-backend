@@ -6,5 +6,9 @@ export class CustomerService {
     return 'Hello this is customer!';
   }
 
+  testPost() : any { 
+    return JSON.stringify({name : "Lnw_za"});
+  }
+
   
 }
