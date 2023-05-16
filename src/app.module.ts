@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { CustomerModule } from './customer/customer.module';
+import { EncryptionModule } from './encryption/encryption.module';
 
 @Module({
-  imports: [CustomerModule],
+  imports: [CustomerModule, EncryptionModule],
   controllers: [AppController],
   providers: [AppService],
 })
