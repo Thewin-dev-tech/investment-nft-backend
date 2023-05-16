@@ -12,7 +12,8 @@ export class EncryptionService {
   findAll() {
     return `This action returns all encryption`;
   }
-  decode(cypherText,key){
+
+  decode(cypherText : string,key : string){
     return CryptoService.decryptCiphertext(cypherText,key);
   }
 
