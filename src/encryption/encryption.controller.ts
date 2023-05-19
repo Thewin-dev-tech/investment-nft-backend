@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body,Query, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { EncryptionService } from './encryption.service';
 import { CreateEncryptionDto } from './dto/create-encryption.dto';
 import { UpdateEncryptionDto } from './dto/update-encryption.dto';
+import { UtilityHelper } from 'helpers/utility.helper';
 
 @Controller('encryption')
 export class EncryptionController {
@@ -17,13 +18,29 @@ export class EncryptionController {
     return this.encryptionService.findAll();
   }
 
-  @Post("decode")
-  decode(@Body() decodeBody: CreateEncryptionDto){
-      
+  @Get("decode/:token")
+  @UsePipes(new ValidationPipe({transform : false}))
+  decodeWithParam(@Param("token") token ){
       try{
-        let body :Record<string , string> = JSON.parse(JSON.stringify(decodeBody));
-        return this.encryptionService.decode(body.cypher_text,body.key);
+        
+        console.log("original param ---->",token);
+        return this.encryptionService.decode(token);
+
       }catch(e:any){
+        console.log(e.stack);
+        return {message : "error"};
+      }
+  }
+
+  @Get("decode")
+  decodeWithQuery(@Query("token") token : string){
+      try{
+        
+        console.log("original query ---->",token);
+        return this.encryptionService.decode(token);
+
+      }catch(e:any){
+        console.log(e.stack);
         return {message : "error"};
       }
   }

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEncryptionDto } from './dto/create-encryption.dto';
 import { UpdateEncryptionDto } from './dto/update-encryption.dto';
-import { CryptoService } from 'services/encryption.service';
+import { CryptoHelper } from 'helpers/encryption.helper';
 
 @Injectable()
 export class EncryptionService {
+
   create(createEncryptionDto: CreateEncryptionDto) {
     return 'This action adds a new encryption';
   }
@@ -13,8 +14,10 @@ export class EncryptionService {
     return `This action returns all encryption`;
   }
 
-  decode(cypherText : string,key : string){
-    return CryptoService.decryptCiphertext(cypherText,key);
+  decode(cypherText : string){
+    let crypto = new CryptoHelper();
+    
+    return crypto.decryptCiphertext(cypherText);
   }
 
   findOne(id: number) {
