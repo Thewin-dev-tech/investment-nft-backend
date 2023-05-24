@@ -36,6 +36,8 @@ CREATE TABLE users (
 	address varchar(255),
 	role int(11) , 
 	remember_token varchar(100),
+	wallet_public_key varchar(200),
+	wallet_private_key varchar(200),
 	created_at TIMESTAMP default CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP default CURRENT_TIMESTAMP,
 	CONSTRAINT user_pk PRIMARY KEY(id)	
